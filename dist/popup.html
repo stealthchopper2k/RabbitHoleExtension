@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Htmx Chrome Extension</title>
+<script defer src="popup.bundle.js"></script></head>
+<body>
+  <div hx-on="htmx:configRequest: event.detail.headers=''; event.detail.headers['Content-Type']='application/x-www-form-urlencoded; charset=UTF-8'" />
+  <button hx-get="https://random-word-api.herokuapp.com/word" hx-swap="outerHTML" hx-target="#target" hx-on:htmx:before-request="alert('Making a request!')">Get Some HTML</button>
+  <div id="target"></div>
+</body>
+</html>

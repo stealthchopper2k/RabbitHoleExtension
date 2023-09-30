@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "RabbitHole Ext",
+    "description": "Gathers user navigation and browsing data.",
+    "version": "1.0",
+    "permissions": ["history", "tabs", "activeTab", "storage"],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  

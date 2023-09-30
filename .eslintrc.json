@@ -1,0 +1,21 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "consistent-return": 2,
+        "indent"           : [1, 2],
+        "no-else-return"   : 1,
+        "semi"             : [1, "always"],
+        "space-unary-ops"  : 2,
+        "semi-style": ["error", "last"],
+        "quotes": [2, "single"],
+        "@typescript-eslint/no-var-requires": 0
+        // "@html-eslint/indent": ["error", 2]
+    }
+}
