@@ -1,14 +1,19 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+// import 'core-js/stable';
 
 module.exports = {
-  entry: './src/popup.js',
-  output: {
-    filename: 'popup.bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+  entry: {
+    "module/popup": "./src/popup.js",
   },
-  mode: 'development',
+  output: {
+    filename: "[name].js",
+    scriptType: "text/javascript",
+    path: path.resolve(__dirname, "dist"),
+  },
+  mode: "production",
+  node: false,
   module: {
     rules: [ {
       test: /\.(js|jsx|mjs)$/,
@@ -16,30 +21,36 @@ module.exports = {
         fullySpecified: false,
       },
       use: {
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
-          presets: [['@babel/preset-env', { targets: 'defaults' }]],
+          presets: [["@babel/preset-env"], "@babel/preset-react"],
         },
       },
     },
     {
       test: /\.html$/i,
-      loader: 'html-loader',
+      loader: "html-loader",
+    },
+    {
+      test: /\.css$/i,
+      use: ["style-loader", "css-loader", "postcss-loader"],
     },
     ]
   },
+  devtool: false,
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/popup.html',
-      filename: 'popup.html',
+      template: "./src/popup.html",
+      filename: "popup.html",
+      chunks: ["module/popup"]
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'public'  },
+        { from: "public"  },
       ],
       options: {
         concurrency: 100,
       },
-    }),
+    })
   ],
 };

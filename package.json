@@ -18,13 +18,17 @@
   },
   "homepage": "https://github.com/stealthchopper2k/RabbitHoleExtension#readme",
   "dependencies": {
-    "htmx.org": "^1.9.6"
+    "htmx.org": "^1.9.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
     "babel-loader": "^9.1.3",
     "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
     "eslint": "^8.50.0",
     "eslint-config-google": "^0.14.0",
     "html-loader": "^4.2.0",
