@@ -1,3 +1,4 @@
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -15,7 +16,7 @@ module.exports = {
   mode: "production",
   node: false,
   module: {
-    rules: [ {
+    rules: [{
       test: /\.(js|jsx|mjs)$/,
       resolve: {
         fullySpecified: false,
@@ -42,11 +43,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/popup.html",
       filename: "popup.html",
-      chunks: ["module/popup"]
+      chunks: ["popup"]
     }),
     new CopyPlugin({
       patterns: [
-        { from: "public"  },
+        { from: "public" },
       ],
       options: {
         concurrency: 100,

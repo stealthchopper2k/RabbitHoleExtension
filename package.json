@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/stealthchopper2k/RabbitHoleExtension#readme",
   "dependencies": {
-    "htmx.org": "^1.9.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
