@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/stealthchopper2k/RabbitHoleExtension#readme",
   "dependencies": {
+    "axios": "^1.5.1",
     "http-proxy-middleware": "^2.0.6",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "postcss-loader": "^7.3.3",

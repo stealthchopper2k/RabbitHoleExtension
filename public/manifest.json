@@ -6,9 +6,6 @@
     "host_permissions": [
       "*://*.google.com/"
     ],
-    "background": {
-      "service_worker": "service-worker.js"
-    },
     "permissions": ["history", "tabs", "activeTab", "storage","cookies"],
     "action": {
       "default_popup": "popup.html"

@@ -1,7 +1,6 @@
 {
     "env": {
-        "browser": true,
-        "es2021": true
+        "webextensions": true
     },
     "parserOptions": {
         "ecmaVersion": 7,
