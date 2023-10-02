@@ -3,7 +3,13 @@
     "name": "RabbitHole Ext",
     "description": "Gathers user navigation and browsing data.",
     "version": "1.0",
-    "permissions": ["history", "tabs", "activeTab", "storage"],
+    "host_permissions": [
+      "*://*.google.com/"
+    ],
+    "background": {
+      "service_worker": "service-worker.js"
+    },
+    "permissions": ["history", "tabs", "activeTab", "storage","cookies"],
     "action": {
       "default_popup": "popup.html"
     }

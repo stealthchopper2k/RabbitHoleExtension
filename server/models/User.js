@@ -1,4 +1,6 @@
-const UserSchema = new mongoose.Scheme({
+const mongoose = require('mongoose')
+
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [false, 'Please add a valid name'],

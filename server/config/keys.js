@@ -1,4 +1,5 @@
 module.exports = {
     googleClientID: '411750696449-5unnrd4pc5bfshasda93pkra7v55f42q.apps.googleusercontent.com',
-    googleClientSecret: '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'
+    googleClientSecret: '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',
+    cookieKey: 'safqeuivbecm1qxqwpodjqwxq19214u089d'
 }

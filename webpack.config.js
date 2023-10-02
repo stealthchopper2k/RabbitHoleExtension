@@ -2,19 +2,21 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 // import 'core-js/stable';
 
 module.exports = {
-  entry: {
-    "popup": "./src/popup.js",
-  },
+  entry: "./src/popup.jsx",
   output: {
     filename: "[name].js",
     scriptType: "text/javascript",
     path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+  optimization: {
+    nodeEnv: 'development',
   },
   mode: "production",
-  node: false,
   module: {
     rules: [{
       test: /\.(js|jsx|mjs)$/,
@@ -40,18 +42,28 @@ module.exports = {
   },
   devtool: false,
   devServer: {
+    devMiddleware: {
+      index: false, // specify to enable root proxying
+    },
     static: {
       directory: path.join(__dirname, 'dist'),
     },
     compress: true,
-    port: 9000,
+    port: 3000,
+    proxy: [
+      {
+        context: ['/auth/google/callback', '/auth/google', '/auth/me', '/auth/logout'],
+        target: 'http://localhost:4500/api/v1',
+        changeOrigin: true,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/popup.html",
       filename: "popup.html",
-      chunks: ["popup"]
     }),
+    new NodePolyfillPlugin(),
     new CopyPlugin({
       patterns: [
         { from: "public" },
