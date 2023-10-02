@@ -20,7 +20,7 @@ passport.use(new GoogleStrategy({
         refreshToken,
         name: profile.displayName,
         avatarUrl: profile.picture,
-        isVerified: profile.email[0].verified
+        isVerified: profile.emails[0].verified
     })
 
     if (existingUser) {
@@ -31,11 +31,11 @@ passport.use(new GoogleStrategy({
         accessToken,
         refreshToken,
         name: profile.displayName,
-        email: profile.email[0].value,
+        email: profile.emails[0].value,
         googleId: profile.id,
         avatarUrl: profile.picture,
-        isVerified: profile.email[0].verified
+        isVerified: profile.emails[0].verified
     }).save()
 
-    done(null, user)
+    return done(null, user)
 }))

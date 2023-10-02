@@ -3,9 +3,11 @@ const dotenv = require('dotenv');
 dotenv.config({ path: "../.env" });
 const express = require('express');
 const connectDB = require('./config/db.js');
+const passport = require('passport')
 require('./services/Passport.js');
 const cookieSession = require('cookie-session');
 const keys = require('./config/keys.js')
+const cors = require('cors')
 
 connectDB();
 
@@ -17,6 +19,10 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000
     , keys: [keys.cookieKey]
 }));
+
+app.use(cors({ origin: true, credentials: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const authentication = require('./routes/Authentication.js');
 
