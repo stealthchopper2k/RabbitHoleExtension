@@ -15,9 +15,6 @@ app.use(cookieSession({
     keys: ['key1', 'key2']
 }))
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 const authentication = require('./routes/Authentication.js')
 
 app.use('/api/v1/auth', authentication);

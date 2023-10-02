@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server --mode=development"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,11 @@
   "homepage": "https://github.com/stealthchopper2k/RabbitHoleExtension#readme",
   "dependencies": {
     "http-proxy-middleware": "^2.0.6",
+    "postcss-loader": "^7.3.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "style-loader": "^3.3.3",
+    "webpack-dev-server": "^4.15.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
