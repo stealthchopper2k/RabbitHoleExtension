@@ -11,9 +11,9 @@
         }
     },
     "plugins": [
-        "react"
+        "react","react-app"
     ],
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "extends": ["eslint:recommended", "plugin:react/recommended","react-app"],
     "rules": {
         "consistent-return": 2,
         "indent"           : [1, 2],
@@ -22,7 +22,7 @@
         "space-unary-ops"  : 2,
         "semi-style": ["error", "last"],
         "quotes": [2, "double"],
-        "@typescript-eslint/no-var-requires": 0
+    "@typescript-eslint/no-var-requires": 0
         // "@html-eslint/indent": ["error", 2]
     }
 }

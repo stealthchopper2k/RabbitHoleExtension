@@ -16,7 +16,6 @@ module.exports = {
   optimization: {
     nodeEnv: 'development',
   },
-  mode: "production",
   module: {
     rules: [{
       test: /\.(js|jsx|mjs)$/,
@@ -29,6 +28,7 @@ module.exports = {
           presets: [["@babel/preset-env"], "@babel/preset-react"],
         },
       },
+      exclude: /node_modules/
     },
     {
       test: /\.html$/i,
