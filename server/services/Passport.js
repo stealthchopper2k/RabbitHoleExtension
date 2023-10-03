@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('../config/keys');
 const User = require('../models/User')
+const History = require('../models/History')
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -23,8 +24,11 @@ passport.use(new GoogleStrategy({
         isVerified: profile.emails[0].verified
     })
 
-    if (existingUser) {
-        return done(null, existingUser)
+    // find latest history entry time, so that we can identify when to check history from again
+    const existingHistory = await History.findOne({ googleId: profile.id }).sort('-created_at')
+
+    if (existingUser && existingHistory) {
+        return done(null, { user: existingUser, history: existingHistory })
     }
 
     const user = await new User({
@@ -32,10 +36,16 @@ passport.use(new GoogleStrategy({
         refreshToken,
         name: profile.displayName,
         email: profile.emails[0].value,
+        isNew: true,
         googleId: profile.id,
         avatarUrl: profile.picture,
         isVerified: profile.emails[0].verified
     }).save()
 
-    return done(null, user)
+    const history = await new History({
+        googleId: profile.id,
+        timeTaken: Date.now()
+    }).save()
+
+    return done(null, { user: user, history: history })
 }))
