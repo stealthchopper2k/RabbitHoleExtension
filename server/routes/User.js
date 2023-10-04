@@ -8,14 +8,6 @@ router.post('/history', async (req, res) => {
     const timeTaken = req.body.timeTaken
     try {
         const newHistory = new History(history)
-
-        await User.findOneAndUpdate({ googleId: userId }, {
-            historyTimeTaken: timeTaken
-        }, {
-            new: true,
-        })
-
-
         await newHistory.save()
         res.json(timeTaken)
     } catch (e) {

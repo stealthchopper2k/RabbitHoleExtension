@@ -20,16 +20,18 @@ passport.deserializeUser(function (data, done) {
     })
 });
 
+// https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     callbackURL: '/api/v1/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
+    console.log(profile)
     const existingUser = await User.findOneAndUpdate({ googleId: profile.id }, {
         accessToken,
         refreshToken,
         name: profile.displayName,
-        avatarUrl: profile.avatarUrl,
+        avatarUrl: profile.picture,
         isVerified: profile.emails[0].verified
     })
 
