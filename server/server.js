@@ -23,9 +23,13 @@ app.use(cookieSession({
 app.use(cors({ origin: true, credentials: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json({ limit: "5mb" }));
+app.use(express.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }))
 
 const authentication = require('./routes/Authentication.js');
+const user = require('./routes/User.js');
 
 app.use('/api/v1/auth', authentication);
+app.use('/user', user)
 
 app.listen('4500', () => { console.log("Server is connected") });

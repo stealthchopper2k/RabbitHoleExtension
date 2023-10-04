@@ -7,8 +7,17 @@ const History = require('../models/History')
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
-passport.deserializeUser(function (user, done) {
-    done(null, user);
+
+// get the latest user for session cookie
+passport.deserializeUser(function (data, done) {
+    // get latest user
+    const id = data.user.googleId;
+    User.findOne({ googleId: id }).then((user) => {
+        done(null, user)
+    }).catch((e) => {
+        console.log("Error deserializeUser: " + e)
+        done(null, false)
+    })
 });
 
 passport.use(new GoogleStrategy({
@@ -20,7 +29,7 @@ passport.use(new GoogleStrategy({
         accessToken,
         refreshToken,
         name: profile.displayName,
-        avatarUrl: profile.picture,
+        avatarUrl: profile.avatarUrl,
         isVerified: profile.emails[0].verified
     })
 
