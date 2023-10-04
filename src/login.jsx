@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from 'axios';
 import { Button } from "@nextui-org/react";
 
 export default function Login({ user }) {
@@ -15,7 +16,12 @@ export default function Login({ user }) {
             {(user && user.email) ? (<Button color="secondary" className="m-2" onClick={handleLogout}>
                 Logout
             </Button>) :
-                (<Button color="secondary" className="m-2" onClick={handleLogin}>Login with Google</Button>)
+                (
+                    <>
+                        <h3 className="whitespace-nowrap">Please Sign In</h3>
+                        <Button color="secondary" className="m-2" onClick={handleLogin}>Login with Google</Button>
+                    </>
+                )
             }
         </div>
     )

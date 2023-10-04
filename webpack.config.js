@@ -52,8 +52,14 @@ module.exports = {
     port: 3000,
     proxy: [
       {
-        context: ['/auth/google/callback', '/auth/google', '/auth/me', '/auth/logout'],
+        context: ['/auth/google/callback', '/auth/google', '/auth/me', '/auth/logout'
+        ],
         target: 'http://localhost:4500/api/v1',
+        changeOrigin: true,
+      },
+      {
+        context: ['/history', '/update'],
+        target: 'http://localhost:4500/user',
         changeOrigin: true,
       },
     ],

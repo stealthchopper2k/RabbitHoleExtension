@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
+import { PostHistory } from "./History";
 
 function Dropdown({ date_options, topic_options, handleDate, handleTopic }) {
   return (
@@ -39,13 +40,13 @@ function Dropdown({ date_options, topic_options, handleDate, handleTopic }) {
   );
 }
 
-export function UserPrompt({ user }) {
-  const day_in_milisecond = 24 * 60 * 60 * 1000;
+export function UserPrompt({ user, updateUser }) {
+  let day_in_milisecond = 24 * 60 * 60 * 1000;
 
   const date_options = {
-    "Last Week": Date.now() - 7 * day_in_milisecond,
-    "Last Month": Date.now() - 30 * day_in_milisecond,
-    "Three Months": Date.now() - 90 * day_in_milisecond,
+    "Last Week": new Date().getTime() - (7 * day_in_milisecond),
+    "Last Month": new Date().getTime() - (30 * day_in_milisecond),
+    "Three Months": new Date().getTime() - (90 * day_in_milisecond),
   }
 
   const topic_options = ["Computing", "Law", "Science", "Maths"];
@@ -74,50 +75,15 @@ export function UserPrompt({ user }) {
       }));
     }
   }
-  function getData() {
-    const history = chrome.history.search({ text: '', startTime: date_options[options["date"]] }, function (data) {
-      console.log(data)
-      return data
-    });
+
+  async function getHistory() {
+    // get all history from startime date_options[options["date"]]
+    const res = await chrome.history.search({ text: '', startTime: date_options[options["date"]], maxResults: 5000 });
 
     return {
-      history: history,
+      history: res,
       timeTaken: Date.now()
-    }
-  }
-
-  async function PostHistory() {
-    const history = getData()
-
-    const newHistory = await axios.post(`/user/history`, null, {
-      profile_id: fetchUser.googleId,
-      history: history.history,
-      timeTaken: history.timeTaken
-    }, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => {
-      console.log(res.status)
-    })
-
-    const newUser = await axios.post(`/user/update/${user.googleId}`, null, {
-      isNew: false,
-      preferences: options["topic"]
-    }, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => {
-      console.log(res.status)
-    })
-
-    try {
-      const [history, user] = await Promise.all([newHistory, newUser])
-      console.log(history, user)
-    } catch (error) {
-      console.log(error)
-    }
+    };
   }
 
   useEffect(() => {
@@ -128,12 +94,13 @@ export function UserPrompt({ user }) {
     <div className="flex flex-col">
       <h3 className="6xl bg-red mt-2 mb-2">How far back would you like to dive?</h3>
       <Dropdown date_options={date_options} topic_options={topic_options} handleDate={handleDate} handleTopic={handleTopic} />
-      <Button color="primary" className="justify-self-center mt-2" onClick={() => {
+      <Button color="primary" className="justify-self-center mt-2" onClick={async () => {
         if (!options["topic"].length) {
           alert("Please select at least one topic")
           return
         }
-        getData()
+        const res = await PostHistory(user, getHistory, updateUser, options["topic"])
+        console.log(res)
       }
       }>
         Submit
